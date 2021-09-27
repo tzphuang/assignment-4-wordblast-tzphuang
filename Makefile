@@ -33,8 +33,8 @@
 # will delete the executable and any object files in your directory.
 #
 
-FIRSTNAME=
-LASTNAME=
+FIRSTNAME=tony
+LASTNAME=huang
 HW=4
 
 ROOTNAME=$(LASTNAME)_$(FIRSTNAME)_HW
@@ -44,8 +44,8 @@ RUNOPTIONS=WarAndPeace.txt 2
 CC=gcc
 CFLAGS= -g -I.
 LIBS =-l pthread
-DEPS = 
-OBJ = $(ROOTNAME)$(HW)$(FOPTION).o
+DEPS = wordBlastFunctions.h
+OBJ = $(ROOTNAME)$(HW)$(FOPTION).o wordBlastFunctions.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS) 

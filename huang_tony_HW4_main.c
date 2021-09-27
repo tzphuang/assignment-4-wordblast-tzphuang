@@ -1,3 +1,16 @@
+/**************************************************************
+* Class:  CSC-415-03 Fall 2021
+* Name: Tony Huang
+* Student ID: 915090688
+* GitHub ID: tzphuang
+* Project: Assignment 4 – Word Blast
+*
+* File: huang_tony_HW4_main.c
+*
+* Description:
+*
+**************************************************************/
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
