@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
 
     char * readFileChunkArray[threadCount];
 
-    //storing (1/thread count) of the file we have to each malloced memory
+    //loop storing (1/thread count) of the file we have to each malloced memory
     for(int count = 0; count < threadCount; count++){
         //dynamically allocate memory to each char ptr of (size of file / number of threads)
         readFileChunkArray[count] = malloc((sizeOfFile/threadCount) + 1);
@@ -81,9 +81,12 @@ int main (int argc, char *argv[])
         readFileChunkArray[count][(sizeOfFile/threadCount) + 1] = '\0';
     }
 
+    /*
+    //checking to see if file was split correctly
     for(int count = 0; count < threadCount; count++){
         printf("File chunk number %d has length %ld\n", count, strlen(readFileChunkArray[count]));
-    }
+        printf("%s\n",readFileChunkArray[count]);
+    }*/
 
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
@@ -98,6 +101,9 @@ int main (int argc, char *argv[])
     
 
     // ***TO DO *** Process TOP 10 and display
+
+    //sort();
+    //printTopTen;
 
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
@@ -122,6 +128,7 @@ int main (int argc, char *argv[])
         free(readFileChunkArray[count]);
     }
 
+    //for every open file descriptor there is a corresponding close
     close(currentFileDescriptor);
 
     return 0;
