@@ -35,15 +35,6 @@ int main (int argc, char *argv[])
     //***TO DO***  Look at arguments, open file, divide by threads
     //             Allocate and Initialize and storage structures
 
-    /*
-    //Using stat structure to find how many bytes in file
-    struct stat fileInfo;
-    stat(argv[1], &fileInfo);
-    int sizeOfFile = fileInfo.st_size; //st_size: Total size, in bytes 
-    printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
-    */
-
-
     //read in file in reference to string stored in argv[1]
     int currentFileDescriptor;
     currentFileDescriptor = open(argv[1], O_RDONLY);
@@ -54,8 +45,7 @@ int main (int argc, char *argv[])
 		exit(1);
 	}
 
-    //using lseek to find size of my file
-
+    //using lseek to find size of my file in argv[1]
     int sizeOfFile;
     //seeks from 0 to the end of file and returns that offset
     sizeOfFile = lseek(currentFileDescriptor, (size_t)0, SEEK_END);
@@ -69,6 +59,31 @@ int main (int argc, char *argv[])
     read(currentFileDescriptor,firstFewWordsOfFile, 30);
     printf("First few words of file is: %s\n", firstFewWordsOfFile);
     free(firstFewWordsOfFile);*/
+
+    //array of pointers to my strings with size of argv[2] ie: thread count
+    char argvChar = *argv[2];
+    int threadCount = argvChar - '0';
+    printf("thread count: %d\n", threadCount);
+
+
+    char * readFileChunkArray[threadCount];
+
+    //storing (1/thread count) of the file we have to each malloced memory
+    for(int count = 0; count < threadCount; count++){
+        //dynamically allocate memory to each char ptr of (size of file / number of threads)
+        readFileChunkArray[count] = malloc((sizeOfFile/threadCount) + 1);
+
+        //store each section of the file into its corresponding malloced memory
+        read(currentFileDescriptor,readFileChunkArray[count], sizeOfFile/threadCount);
+
+        //setting the last character inside the split file to null terminator '\0' 
+        //so I know the string can be read properly
+        readFileChunkArray[count][(sizeOfFile/threadCount) + 1] = '\0';
+    }
+
+    for(int count = 0; count < threadCount; count++){
+        printf("File chunk number %d has length %ld\n", count, strlen(readFileChunkArray[count]));
+    }
 
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
@@ -101,6 +116,12 @@ int main (int argc, char *argv[])
 
 
     // ***TO DO *** cleanup
+
+    //for every malloc there is a corresponding free
+    for(int count = 0; count < threadCount; count++){
+        free(readFileChunkArray[count]);
+    }
+
     close(currentFileDescriptor);
 
     return 0;
