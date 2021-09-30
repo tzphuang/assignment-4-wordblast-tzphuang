@@ -1,3 +1,16 @@
+/**************************************************************
+* Class:  CSC-415-03 Fall 2021
+* Name: Tony Huang
+* Student ID: 915090688
+* GitHub ID: tzphuang
+* Project: Assignment 4 – Word Blast
+*
+* File: wordBlastFunctions.c
+*
+* Description:
+*
+**************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -11,7 +24,7 @@ struct node {
    struct node *next;
 };
 
-static struct node *head = NULL; //static so they can be referenced through all the threads?
+static struct node *head = NULL; //head node of the linked node array
 static struct node *current = NULL;
 
 void insertNewWord(char* newWord) {

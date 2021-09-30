@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-//blew for sytem call for close to close files
+//below for sytem call for close to close files
 #include <unistd.h>
 #include <stdbool.h>
 
@@ -31,7 +31,9 @@ int main(void) {
   int totalBytesReadFromFile = 4000000;
   bufPtr[totalBytesReadFromFile] = '\0';
 
+  //this would be looped and where I separate the read files into chunks to be filled into the array
 	read(currentFileDescriptor, bufPtr, totalBytesReadFromFile);
+
 
   //printf("%s\n",bufPtr);
   fillArrayList(bufPtr);

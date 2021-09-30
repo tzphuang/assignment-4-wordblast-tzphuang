@@ -20,6 +20,10 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#include <string.h>
+#include <stdbool.h>
+#include "wordBlastFunctions.h"
+
 
 // You may find this Useful
 char * delim = "\"\'.“”‘’?:;-,—*($%)! \t\n\x0A\r";
@@ -31,6 +35,23 @@ int main (int argc, char *argv[])
     //***TO DO***  Look at arguments, open file, divide by threads
     //             Allocate and Initialize and storage structures
 
+    //Using stat structure
+    struct stat fileInfo;
+    stat(argv[1], &fileInfo);
+    int sizeOfFile = fileInfo.st_size; //st_size: Total size, in bytes 
+    printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
+
+
+    //@~@~@~read~@~@~@
+    int currentFileDescriptor;
+    currentFileDescriptor = open(argv[1], O_RDONLY);
+  
+	if(currentFileDescriptor == -1)
+	{
+		printf("Failed to open and read Argv[1]");
+		exit(1);
+	}
+
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
     //Time stamp start
@@ -41,7 +62,7 @@ int main (int argc, char *argv[])
     //**************************************************************
     // *** TO DO ***  start your thread processing
     //                wait for the threads to finish
-
+    
 
     // ***TO DO *** Process TOP 10 and display
 
@@ -62,4 +83,7 @@ int main (int argc, char *argv[])
 
 
     // ***TO DO *** cleanup
+    close(currentFileDescriptor);
+
+    return 0;
     }
