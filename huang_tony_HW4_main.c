@@ -35,14 +35,16 @@ int main (int argc, char *argv[])
     //***TO DO***  Look at arguments, open file, divide by threads
     //             Allocate and Initialize and storage structures
 
-    //Using stat structure
+    /*
+    //Using stat structure to find how many bytes in file
     struct stat fileInfo;
     stat(argv[1], &fileInfo);
     int sizeOfFile = fileInfo.st_size; //st_size: Total size, in bytes 
     printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
+    */
 
 
-    //@~@~@~read~@~@~@
+    //read in file in reference to string stored in argv[1]
     int currentFileDescriptor;
     currentFileDescriptor = open(argv[1], O_RDONLY);
   
@@ -51,6 +53,22 @@ int main (int argc, char *argv[])
 		printf("Failed to open and read Argv[1]");
 		exit(1);
 	}
+
+    //using lseek to find size of my file
+
+    int sizeOfFile;
+    //seeks from 0 to the end of file and returns that offset
+    sizeOfFile = lseek(currentFileDescriptor, (size_t)0, SEEK_END);
+    //setting lseek pointer back to beginning of file which is 0
+    lseek(currentFileDescriptor, (off_t)0, SEEK_SET);
+
+    printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
+    /*
+    //checking to make sure my lseek went back to the beginning of the file
+    char * firstFewWordsOfFile = malloc(sizeOfFile);
+    read(currentFileDescriptor,firstFewWordsOfFile, 30);
+    printf("First few words of file is: %s\n", firstFewWordsOfFile);
+    free(firstFewWordsOfFile);*/
 
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
