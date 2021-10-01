@@ -7,7 +7,13 @@
 *
 * File: huang_tony_HW4_main.c
 *
-* Description:
+* Description: Program reads in a file and then tokenizes the file into words.
+* The program then processes the words and checks to see if their lengths are greater than
+* or equal to 6, if they are they will be checked within a linked node list
+* to see if they are already represented inside the array and will have the counter
+* incremented by 1 if already represented. If not respresented in the linked node list
+* the program will create a new node for the new 6 letter word and add it to the beginning
+* of the list as the new head.
 *
 **************************************************************/
 
@@ -52,7 +58,7 @@ int main (int argc, char *argv[])
     //setting lseek pointer back to beginning of file which is 0
     lseek(currentFileDescriptor, (off_t)0, SEEK_SET);
 
-    printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
+    //printf("Size of argv[1] file: %s is size: %d\n", argv[1], sizeOfFile);
     /*
     //checking to make sure my lseek went back to the beginning of the file
     char * firstFewWordsOfFile = malloc(sizeOfFile);

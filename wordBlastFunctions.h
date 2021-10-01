@@ -1,3 +1,16 @@
+/**************************************************************
+* Class:  CSC-415-03 Fall 2021
+* Name: Tony Huang
+* Student ID: 915090688
+* GitHub ID: tzphuang
+* Project: Assignment 4 – Word Blast
+*
+* File: wordBlastFunctions.h
+*
+* Description: Program is the header file needed for wordBlastFunctions.c
+*
+**************************************************************/
+
 #ifndef _WORDBLASTFUNCTIONS
 #define _WORDBLASTFUNCTIONS
 

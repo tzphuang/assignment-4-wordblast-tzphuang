@@ -7,7 +7,8 @@
 *
 * File: wordBlastFunctions.c
 *
-* Description:
+* Description: Program features many functions needed to run and maintain a linked node list
+* 
 *
 **************************************************************/
 
@@ -53,11 +54,15 @@ void insertNewWord(char* newWord) {
       //link->count = &startingInt;
       link->count = 1;
       
+      pthread_mutex_lock(&myMutexLock);
+         
       //point it to old first node
       link->next = head;
       
       //point first to new first node
       head = link;
+
+      pthread_mutex_unlock(&myMutexLock);
    }
    
 }
@@ -195,11 +200,11 @@ void *fillArrayList(void * bufferedString){
    while ((token = strtok_r(savePtr, delim, &savePtr))){
       if(6 <= strlen(token)){//for strings with 6 character or more
          //printf("inserting token %s\n", token);
-         pthread_mutex_lock(&myMutexLock);
-
+         //pthread_mutex_lock(&myMutexLock);
+         
          insertNewWord(token);
          
-         pthread_mutex_unlock(&myMutexLock);
+         //pthread_mutex_unlock(&myMutexLock);
       } 
    }
 
