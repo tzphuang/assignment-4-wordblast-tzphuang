@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <pthread.h>
 
 #include "wordBlastFunctions.h"
 
@@ -24,8 +25,11 @@ struct node {
    struct node *next;
 };
 
-static struct node *head = NULL; //head node of the linked node array
+static struct node *head = NULL; //head node of the linked node list
 static struct node *current = NULL;
+
+//mutex lock created and initialized so we know the state of it
+pthread_mutex_t myMutexLock = PTHREAD_MUTEX_INITIALIZER;
 
 void insertNewWord(char* newWord) {
    //printf("inside insertNewWord\n");
@@ -180,16 +184,22 @@ void printList() {
 	
 }
 
-void fillArrayList(char* bufferedString){
+//void fillArrayList(char* bufferedString){
+void *fillArrayList(void * bufferedString){
    //printf("inside fillArrayList\n");
    char* delim = "\"\'.“”‘’?:;-,—*($%)! \t\n\x0A\r";
    char* token;
-   char* savePtr = bufferedString;
+   //concatenating void * ptr to char * as I know it is a char *
+   char* savePtr = (char *) bufferedString; 
 
    while ((token = strtok_r(savePtr, delim, &savePtr))){
       if(6 <= strlen(token)){//for strings with 6 character or more
          //printf("inserting token %s\n", token);
+         pthread_mutex_lock(&myMutexLock);
+
          insertNewWord(token);
+         
+         pthread_mutex_unlock(&myMutexLock);
       } 
    }
 

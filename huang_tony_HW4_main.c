@@ -100,9 +100,26 @@ int main (int argc, char *argv[])
     // *** TO DO ***  start your thread processing
     //                wait for the threads to finish
     
+    //array of pthreads for multi threading
+    pthread_t arrayPThreads[threadCount];
+
+    //loop and create theadCount number of threads using pthread_create and run the threads
+    for(int count = 0; count < threadCount; count++){
+        pthread_create(&arrayPThreads[count], NULL, fillArrayList, (void*) readFileChunkArray[count]);
+    }
+    
+    //after threads are running pthread_join lets the main program wait until threads
+    //have finished executing before continuing on
+    //(pthread join is just like wait for fork)
+    for(int count = 0; count < threadCount; count++){
+        pthread_join(arrayPThreads[count], NULL);
+    }
+    
+    /*
+    //used to test if array still fills when file is split up into chunks
     for(int count = 0; count < threadCount; count++){
         fillArrayList(readFileChunkArray[count]);
-    }
+    }*/
 
     // ***TO DO *** Process TOP 10 and display
 

@@ -40,7 +40,7 @@ HW=4
 ROOTNAME=$(LASTNAME)_$(FIRSTNAME)_HW
 
 FOPTION=_main
-RUNOPTIONS=WarAndPeace.txt 2
+RUNOPTIONS=WarAndPeace.txt 1
 CC=gcc
 CFLAGS= -g -I.
 LIBS =-l pthread

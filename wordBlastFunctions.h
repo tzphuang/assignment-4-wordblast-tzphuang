@@ -10,7 +10,8 @@ bool isWordInArray(char* searchWord);
 int getLength();
 void sort();
 void printList();
-void fillArrayList(char* bufferedString);
+//void fillArrayList(char* bufferedString);
+void *fillArrayList(void * ptr);
 void printTopTen();
 
 
