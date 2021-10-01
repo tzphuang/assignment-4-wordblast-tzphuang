@@ -60,12 +60,13 @@ int main (int argc, char *argv[])
     printf("First few words of file is: %s\n", firstFewWordsOfFile);
     free(firstFewWordsOfFile);*/
 
-    //array of pointers to my strings with size of argv[2] ie: thread count
+    //converting argv[2] which is a char* to an integer and storing inside threadCount
     char argvChar = *argv[2];
     int threadCount = argvChar - '0';
-    printf("thread count: %d\n", threadCount);
+    printf("Word Frequency Count on %s with %d threads\n", argv[1], threadCount);
 
 
+    //array of pointers to my strings with size of argv[2] ie: thread count
     char * readFileChunkArray[threadCount];
 
     //loop storing (1/thread count) of the file we have to each malloced memory
@@ -99,11 +100,14 @@ int main (int argc, char *argv[])
     // *** TO DO ***  start your thread processing
     //                wait for the threads to finish
     
+    for(int count = 0; count < threadCount; count++){
+        fillArrayList(readFileChunkArray[count]);
+    }
 
     // ***TO DO *** Process TOP 10 and display
 
-    //sort();
-    //printTopTen;
+    sort();
+    printTopTen();
 
     //**************************************************************
     // DO NOT CHANGE THIS BLOCK
